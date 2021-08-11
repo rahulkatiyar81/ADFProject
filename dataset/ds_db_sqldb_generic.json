@@ -1,5 +1,5 @@
 {
-	"name": "ds_db_sqldb",
+	"name": "ds_db_sqldb_generic",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_SQLDB",
