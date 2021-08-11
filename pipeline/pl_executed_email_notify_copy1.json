@@ -1,0 +1,83 @@
+{
+	"name": "pl_executed_email_notify_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "NotifySuccess",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Validation1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-82.eastus.logic.azure.com:443/workflows/67c0de9f29c74bdc9f006e6800e5db6a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=obF3yTOdQLIp1We2VpSiMGl3tyA_L4CH_fiw_te0AiY",
+					"method": "POST",
+					"body": {
+						"value": "{\n\t\"Status\":\"Successfull\",\n\t\"PLName\":\"@{pipeline().Pipeline}\",\n\t\"ExecTime\":\"@{pipeline().TriggerTime}\"\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "NotifyFailure",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Validation1",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-16.northcentralus.logic.azure.com:443/workflows/053b522be79243b0a9f1649f57c0e19f/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VM1BqzqAoCL-3OMqxaUGg8JnNTv5_8FGTrTCXbnx9n0",
+					"method": "POST",
+					"body": {
+						"value": "{\n\t\"Status\":\"Failed\",\n\t\"PLName\":\"@{pipeline().Pipeline}\",\n\t\"ExecTime\":\"@{pipeline().TriggerTime}\",\n\t\"ErrorMessage\":@{activity('Validation1').output.errors}\n}\n",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Validation1",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_scenario2_src",
+						"type": "DatasetReference"
+					},
+					"timeout": "0.00:02:00",
+					"sleep": 10
+				}
+			}
+		],
+		"folder": {
+			"name": "Scenario"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-08-10T17:02:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

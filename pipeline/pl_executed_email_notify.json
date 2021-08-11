@@ -1,0 +1,127 @@
+{
+	"name": "pl_executed_email_notify",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy Population Data_copy",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:05:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_employee_csv",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_emp_File_watcher_tgt",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "NotifySuccess",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Copy Population Data_copy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-82.eastus.logic.azure.com:443/workflows/67c0de9f29c74bdc9f006e6800e5db6a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=obF3yTOdQLIp1We2VpSiMGl3tyA_L4CH_fiw_te0AiY",
+					"method": "POST",
+					"body": {
+						"value": "{\n\t\"Status\":\"Successfull\",\n\t\"PLName\":\"@{pipeline().Pipeline}\",\n\t\"ExecTime\":\"@{pipeline().TriggerTime}\"\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "NotifyFailure",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Copy Population Data_copy",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-16.northcentralus.logic.azure.com:443/workflows/053b522be79243b0a9f1649f57c0e19f/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VM1BqzqAoCL-3OMqxaUGg8JnNTv5_8FGTrTCXbnx9n0",
+					"method": "POST",
+					"body": {
+						"value": "{\n\t\"Status\":\"Failed\",\n\t\"PLName\":\"@{pipeline().Pipeline}\",\n\t\"ExecTime\":\"@{pipeline().TriggerTime}\",\n\t\"ErrorMessage\":\"{@activity('Copy Population Data_copy').output.errors}\n}\n",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "Scenario"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-08-10T17:02:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
