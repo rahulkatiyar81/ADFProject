@@ -1,9 +1,9 @@
 {
-	"name": "pl_AdfAssign_Scenario2_UnqRec",
+	"name": "pl_AdfAssign_Scenario2_DupRec",
 	"properties": {
 		"activities": [
 			{
-				"name": "dataflowRmDup",
+				"name": "dataflowDupRec",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "dataflowRmDup",
+						"referenceName": "dataflowDupRec",
 						"type": "DataFlowReference"
 					},
 					"compute": {

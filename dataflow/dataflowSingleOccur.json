@@ -1,0 +1,35 @@
+{
+	"name": "dataflowSingleOccur",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_scenario2_src",
+						"type": "DatasetReference"
+					},
+					"name": "srcscenario"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_scenario2_tgt",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Aggregate1"
+				},
+				{
+					"name": "Filter1"
+				}
+			],
+			"script": "source(output(\n\t\tId as string,\n\t\t{ Project} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> srcscenario\nsrcscenario aggregate(groupBy(Id,\n\t\t{ Project}),\n\tCount_Rec = count(Id),\n\tpartitionBy('hash', 1)) ~> Aggregate1\nAggregate1 filter(equals(Count_Rec,1),\n\tpartitionBy('hash', 1)) ~> Filter1\nFilter1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['Tgt_scenario2_SingleOccur.csv'],\n\tumask: 0777,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tId,\n\t\t{ Project}\n\t),\n\tpartitionBy('hash', 1)) ~> sink1"
+		}
+	}
+}
