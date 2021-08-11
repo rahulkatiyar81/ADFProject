@@ -1,0 +1,36 @@
+{
+	"name": "ds_scenario_generic",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_covidreportdlrk",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TgtFileName": {
+				"type": "string",
+				"defaultValue": "tgt_sce_filter.csv"
+			}
+		},
+		"folder": {
+			"name": "Scenario"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().TgtFileName",
+					"type": "Expression"
+				},
+				"folderPath": "ADFAssignment/Output",
+				"fileSystem": "scenario"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
