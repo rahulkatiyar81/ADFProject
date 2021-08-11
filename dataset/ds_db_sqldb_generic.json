@@ -5,6 +5,16 @@
 			"referenceName": "ls_SQLDB",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"SchamaName": {
+				"type": "string",
+				"defaultValue": "SalesLT"
+			},
+			"TableName": {
+				"type": "string",
+				"defaultValue": "Address"
+			}
+		},
 		"folder": {
 			"name": "Scenario"
 		},
