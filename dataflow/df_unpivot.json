@@ -26,7 +26,7 @@
 					"name": "Unpivot"
 				}
 			],
-			"script": "source(output(\n\t\tEmpid as string,\n\t\tName as string,\n\t\tJanSal as string,\n\t\tFebSal as string,\n\t\tMarSal as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source\nsource unpivot(output(\n\t\tMonth as string,\n\t\tSalary as string\n\t),\n\tungroupBy(Empid,\n\t\tName),\n\tlateral: true,\n\tignoreNullPivots: false) ~> Unpivot\nUnpivot sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tId as string,\n\t\t{ Project} as string\n\t),\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink"
+			"script": "source(output(\n\t\tEmpid as string,\n\t\tName as string,\n\t\tJanSal as string,\n\t\tFebSal as string,\n\t\tMarSal as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> source\nsource unpivot(output(\n\t\tMonth as string,\n\t\tSalary as string\n\t),\n\tungroupBy(Empid,\n\t\tName),\n\tlateral: true,\n\tignoreNullPivots: false,\n\tpartitionBy('hash', 1)) ~> Unpivot\nUnpivot sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tId as string,\n\t\t{ Project} as string\n\t),\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> sink"
 		}
 	}
 }
