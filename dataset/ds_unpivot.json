@@ -1,0 +1,45 @@
+{
+	"name": "ds_unpivot",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_covidreportsark",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "UnpivotScenario.txt",
+				"folderPath": "Input/ADFAssignment",
+				"container": "scenario"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Empid",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "JanSal",
+				"type": "String"
+			},
+			{
+				"name": "FebSal",
+				"type": "String"
+			},
+			{
+				"name": "MarSal",
+				"type": "String"
+			}
+		]
+	}
+}
