@@ -1,0 +1,15 @@
+{
+	"name": "ds_AzureTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_AzureTableStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "Address"
+		}
+	}
+}
