@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "Select * from SalesLT.Address",
+						"sqlReaderQuery": "Select *,substring(addressline1,0,6) NewAddress1,substring(addressline1,7,6) NewAddress2 from SalesLT.Address",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -68,7 +68,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "Select * from SalesLT.Address",
+						"sqlReaderQuery": "Select *,substring(addressline1,0,6) NewAddress1,substring(addressline1,7,6) NewAddress2 from SalesLT.Address",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
