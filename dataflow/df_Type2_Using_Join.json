@@ -1,0 +1,52 @@
+{
+	"name": "df_Type2_Using_Join",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_empType2",
+						"type": "DatasetReference"
+					},
+					"name": "source"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_db_ref_EmpType2",
+						"type": "DatasetReference"
+					},
+					"name": "RefTable"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_db_emp_tgt",
+						"type": "DatasetReference"
+					},
+					"name": "sink"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_db_emp_tgt",
+						"type": "DatasetReference"
+					},
+					"name": "tgt"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Joinempref"
+				},
+				{
+					"name": "ConditionalSplit"
+				},
+				{
+					"name": "AlterRow"
+				}
+			],
+			"script": "source(output(\n\t\tEId as integer,\n\t\tEName as string,\n\t\tWorkLocation as string,\n\t\tEmployeeDesignation as string,\n\t\tProjectCode as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source\nsource(output(\n\t\tscdkey as integer,\n\t\tEmpId as integer,\n\t\tWorkLoc as string,\n\t\tDesignation as string,\n\t\tProject as string,\n\t\tDeleteFlag as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select scdkey,EmpId,WorkLoc,Designation,Project,DeleteFlag from saleslt.emp_type2',\n\tformat: 'query') ~> RefTable\nsource, RefTable join(EId == EmpId,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> Joinempref\nJoinempref split(EId==EmpId,\n\tdisjoint: false) ~> ConditionalSplit@(Matching, NonMatching)\nConditionalSplit@Matching alterRow(updateIf(1==1)) ~> AlterRow\nAlterRow sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tscdkey as integer,\n\t\tEmpId as integer,\n\t\tEmpName as string,\n\t\tWorkLoc as string,\n\t\tDesignation as string,\n\t\tProject as string\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['EmpId'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tEmpId,\n\t\tWorkLoc = WorkLocation,\n\t\tDesignation = EmployeeDesignation,\n\t\tProject = ProjectCode\n\t)) ~> sink\nConditionalSplit@NonMatching sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tscdkey as integer,\n\t\tEmpId as integer,\n\t\tEmpName as string,\n\t\tWorkLoc as string,\n\t\tDesignation as string,\n\t\tProject as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tEmpId = EId,\n\t\tEmpName = EName,\n\t\tWorkLoc = WorkLocation,\n\t\tDesignation = EmployeeDesignation,\n\t\tProject = ProjectCode\n\t)) ~> tgt"
+		}
+	}
+}
