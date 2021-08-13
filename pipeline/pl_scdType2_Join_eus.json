@@ -1,9 +1,9 @@
 {
-	"name": "pl_scdType1_Join",
+	"name": "pl_scdType2_Join_eus",
 	"properties": {
 		"activities": [
 			{
-				"name": "df_Type1_Using_Join",
+				"name": "df_Type2_Using_Join_eus",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "df_Type1_Using_Join",
+						"referenceName": "df_Type2_Using_Join_eus",
 						"type": "DataFlowReference"
 					},
 					"compute": {
