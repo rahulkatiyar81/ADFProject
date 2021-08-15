@@ -1,0 +1,32 @@
+{
+	"name": "df_pivot",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_pivot",
+						"type": "DatasetReference"
+					},
+					"name": "source"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_dl_unpivote",
+						"type": "DatasetReference"
+					},
+					"name": "sink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Pivot"
+				}
+			],
+			"script": "source(output(\n\t\tEmpid as string,\n\t\tName as string,\n\t\tMonth as string,\n\t\tSalary as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> source\nsource pivot(groupBy(Empid,\n\t\tName),\n\tpivotBy(Month),\n\t{} = sum(toInteger(Salary)),\n\tcolumnNaming: '$N$V',\n\tlateral: true,\n\tpartitionBy('hash', 1)) ~> Pivot\nPivot sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tId as string,\n\t\t{ Project} as string\n\t),\n\tpartitionFileNames:['tgt_pivote.csv'],\n\tumask: 0777,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> sink"
+		}
+	}
+}

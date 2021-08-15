@@ -1,0 +1,45 @@
+{
+	"name": "ds_emp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_covidreportsark",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Emp.csv",
+				"folderPath": "Input/SCD",
+				"container": "scenario"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "EmpId",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "WorkLoc",
+				"type": "String"
+			},
+			{
+				"name": "Designation",
+				"type": "String"
+			},
+			{
+				"name": "Project",
+				"type": "String"
+			}
+		]
+	}
+}

@@ -1,12 +1,9 @@
 {
-	"name": "ds_db_sqldb_generic",
+	"name": "ds_db_Address",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_SQLDB",
+			"referenceName": "ls_AdfDb",
 			"type": "LinkedServiceReference"
-		},
-		"folder": {
-			"name": "Scenario"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",

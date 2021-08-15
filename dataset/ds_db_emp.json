@@ -1,0 +1,43 @@
+{
+	"name": "ds_db_emp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_SQLDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "scdkey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EmpId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EmpName",
+				"type": "varchar"
+			},
+			{
+				"name": "WorkLoc",
+				"type": "varchar"
+			},
+			{
+				"name": "Designation",
+				"type": "varchar"
+			},
+			{
+				"name": "Project",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "SalesLT",
+			"table": "emp"
+		}
+	}
+}

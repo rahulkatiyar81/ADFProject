@@ -1,0 +1,35 @@
+{
+	"name": "pl_scdType2_Join_eus",
+	"properties": {
+		"activities": [
+			{
+				"name": "df_Type2_Using_Join_eus",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_Type2_Using_Join_eus",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "Scenario"
+		},
+		"annotations": []
+	}
+}
