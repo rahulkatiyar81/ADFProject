@@ -3,16 +3,16 @@
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"parameters": {
-			"InputFileName": {
+			"ContainerName": {
 				"type": "string",
-				"defaultValue": "Test.csv"
+				"defaultValue": "input"
 			}
 		},
 		"annotations": [],
 		"type": "AzureBlobStorage",
 		"typeProperties": {
 			"connectionString": "DefaultEndpointsProtocol=https;AccountName=covidreportsark;EndpointSuffix=core.windows.net;",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkNPVklELVJFUE9SVC1QUk9KRUNUX2VlMzEyNmRlLWRlODgtNDhkZC05Y2IxLWFjZmE3NGE0ODFiZSINCn0="
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkNPVklELVJFUE9SVC1QUk9KRUNUX2MwYTM4M2VkLWQ2NjAtNDljYy04M2ZiLTViYWMzYjMwMGQzOSINCn0="
 		}
 	}
 }
