@@ -12,13 +12,25 @@
 			"InputFileName": {
 				"type": "string",
 				"defaultValue": "Emp.csv"
+			},
+			"ContainerName": {
+				"type": "string",
+				"defaultValue": "input"
 			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation"
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().InputFileName",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().ContainerName",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
