@@ -5,6 +5,10 @@
 			"SourceFileName": {
 				"type": "string",
 				"value": "Test.csv"
+			},
+			"TargetFileName": {
+				"type": "string",
+				"value": "TgtTest.csv"
 			}
 		}
 	},
