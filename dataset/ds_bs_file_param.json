@@ -1,0 +1,41 @@
+{
+	"name": "ds_bs_file_param",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blobstorage_param",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ContainerName": "input"
+			}
+		},
+		"parameters": {
+			"InputFileName": {
+				"type": "string",
+				"defaultValue": "Emp.csv"
+			},
+			"ContainerName": {
+				"type": "string",
+				"defaultValue": "input"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().InputFileName",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().ContainerName",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

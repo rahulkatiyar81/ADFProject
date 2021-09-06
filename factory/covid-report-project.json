@@ -1,5 +1,17 @@
 {
 	"name": "covid-report-project",
+	"properties": {
+		"globalParameters": {
+			"SourceFileName": {
+				"type": "string",
+				"value": "Test.csv"
+			},
+			"TargetFileName": {
+				"type": "string",
+				"value": "TgtTest.csv"
+			}
+		}
+	},
 	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",

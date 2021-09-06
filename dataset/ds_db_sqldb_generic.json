@@ -2,7 +2,7 @@
 	"name": "ds_db_sqldb_generic",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_SQLDB",
+			"referenceName": "ls_AdfDb",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
@@ -52,8 +52,8 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "SalesLT",
-			"table": "Address"
+			"schema": "dbo",
+			"table": "empType2"
 		}
 	}
 }

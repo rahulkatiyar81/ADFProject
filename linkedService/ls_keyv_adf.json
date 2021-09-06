@@ -1,0 +1,10 @@
+{
+	"name": "ls_keyv_adf",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://AdfKeyv1.vault.azure.net/"
+		}
+	}
+}

@@ -1,0 +1,56 @@
+{
+	"name": "ds_src_empType2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_AdfDb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "scdkey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EmpId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EmpName",
+				"type": "varchar"
+			},
+			{
+				"name": "WorkLoc",
+				"type": "varchar"
+			},
+			{
+				"name": "Designation",
+				"type": "varchar"
+			},
+			{
+				"name": "Project",
+				"type": "varchar"
+			},
+			{
+				"name": "DeleteFlag",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EffectiveStartDate",
+				"type": "date"
+			},
+			{
+				"name": "EffectiveEndDate",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "empType2"
+		}
+	}
+}

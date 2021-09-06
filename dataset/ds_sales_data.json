@@ -1,0 +1,27 @@
+{
+	"name": "ds_sales_data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blobstorage_param",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ContainerName": "input"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "SalesData.csv",
+				"folderPath": "SampleData",
+				"container": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
