@@ -84,11 +84,3 @@
 						"type": "DatasetReference"
 					}
 				]
-			}
-		],
-		"folder": {
-			"name": "Scenario"
-		},
-		"annotations": []
-	}
-}
